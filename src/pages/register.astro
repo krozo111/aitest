@@ -1,0 +1,199 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { registerUser } from '../lib/airtable';
+
+let success = false;
+let error = null;
+
+if (Astro.request.method === 'POST') {
+  try {
+    const data = await Astro.request.formData();
+    const nombre = data.get('nombre')?.toString() || '';
+    const email = data.get('email')?.toString() || '';
+    const edad = data.get('edad')?.toString() || '';
+
+    if (!nombre || !email) {
+      throw new Error('Name and email are required.');
+    }
+
+    await registerUser(nombre, email, edad);
+    success = true;
+
+  } catch (e) {
+    if (e instanceof Error) {
+        error = e.message;
+    } else {
+        error = 'An unexpected error occurred while saving the data.';
+    }
+  }
+}
+---
+
+<Layout>
+    <main class="container">
+        <div class="glass-card">
+            <header>
+                <h1>Join Us</h1>
+                <p>Leave us your details so we can get in touch with you.</p>
+            </header>
+
+            {success ? (
+                <div class="success-message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    <h2>Thank you for registering!</h2>
+                    <p>Your data has been successfully saved.</p>
+                    <a href="/register" class="btn-refresh">Register another</a>
+                </div>
+            ) : (
+                <form method="POST" class="register-form">
+                    {error && (
+                        <div class="error-message">
+                            {error}
+                        </div>
+                    )}
+                    
+                    <div class="form-group">
+                        <label for="nombre">Full Name</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="e.g. Jane Doe" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@email.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edad">Age (optional)</label>
+                        <input type="number" id="edad" name="edad" placeholder="e.g. 25" min="1" max="120" />
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span>Submit my details</span>
+                    </button>
+                </form>
+            )}
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .register-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-left: 0.25rem;
+    }
+
+    input {
+        background: #ffffff;
+        border: 2px solid #e6e6e6;
+        border-radius: 8px;
+        padding: 1rem 1.25rem;
+        color: var(--color-text);
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.3s ease;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 4px rgba(80, 224, 191, 0.2);
+    }
+
+    input::placeholder {
+        color: #a0a0a0;
+    }
+
+    .submit-btn {
+        background: var(--color-primary);
+        color: #ffffff;
+        border: none;
+        border-radius: 50px; /* Pillow shape for button */
+        padding: 1.15rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .submit-btn:hover {
+        background: var(--color-secondary); /* Pink on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 140, 156, 0.4);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .error-message {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #fca5a5;
+        padding: 1rem;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        text-align: center;
+    }
+
+    .success-message {
+        text-align: center;
+        padding: 2rem 0;
+        animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .success-message svg {
+        width: 64px;
+        height: 64px;
+        color: var(--color-success);
+        margin-bottom: 1.5rem;
+    }
+
+    .success-message h2 {
+        font-size: 1.8rem;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .success-message p {
+        margin-bottom: 2rem;
+    }
+
+    .btn-refresh {
+        display: inline-block;
+        background: var(--color-bg);
+        color: white;
+        text-decoration: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+
+    .btn-refresh:hover {
+        background: var(--color-primary);
+    }
+</style>

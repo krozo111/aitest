@@ -1,3 +1,6 @@
+---
+import Navigation from '../components/Navigation.astro';
+---
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,18 +8,96 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Yugo Internal Portal</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 	</head>
 	<body>
+        <Navigation />
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+    :root {
+        --color-bg: #3f2d51; /* Yugo Dark Purple */
+        --color-surface: rgba(255, 255, 255, 0.95); /* White card */
+        --color-border: rgba(63, 45, 81, 0.1);
+        --color-text: #3f2d51;
+        --color-text-muted: #565656;
+        --color-primary: #50e0bf; /* Yugo Teal */
+        --color-primary-hover: #3bc7a7;
+        --color-secondary: #ff8c9c; /* Yugo Pink */
+        --color-accent: #fe544a; /* Yugo Orange/Red */
+        --color-error: #fe544a;
+        --color-success: #50e0bf;
+    }
+
 	html,
 	body {
 		margin: 0;
 		width: 100%;
-		height: 100%;
+		min-height: 100vh;
+        font-family: 'DM Sans', sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        background-image: 
+            radial-gradient(circle at 15% 50%, rgba(255, 140, 156, 0.2) 0%, transparent 50%),
+            radial-gradient(circle at 85% 30%, rgba(80, 224, 191, 0.2) 0%, transparent 50%);
+        background-attachment: fixed;
 	}
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* ESTILOS GLOBALES COMPARTIDOS */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 6rem 2rem 2rem 2rem;
+    }
+
+    .glass-card {
+        background: var(--color-surface);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--color-border);
+        border-radius: 24px;
+        padding: 3rem;
+        width: 100%;
+        max-width: 480px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.6s ease-out forwards;
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    @keyframes fadeIn {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin: 0 0 0.5rem 0;
+        color: var(--color-bg);
+    }
+
+    p {
+        color: var(--color-text-muted);
+        margin: 0;
+        font-size: 1.1rem;
+    }
 </style>

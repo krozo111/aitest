@@ -1,0 +1,55 @@
+---
+---
+<nav class="main-nav">
+    <div class="nav-content">
+        <a href="/" class="nav-logo"><b>Yugo</b> Forms</a>
+        <div class="nav-links">
+            <a href="/register">Register</a>
+            <a href="/arrival-checklist">Arrival Checklist</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .main-nav {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(63, 45, 81, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        padding: 1rem 2rem;
+    }
+
+    .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-logo {
+        color: var(--color-bg);
+        font-size: 1.2rem;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .nav-links a {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+        color: var(--color-primary);
+    }
+</style>

@@ -1,11 +1,296 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+    <main class="dashboard-container">
+        
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="badge">Internal Portal</span>
+                <h1>Yugo <span class="highlight">Adelaide City</span></h1>
+                <p>Welcome to the central control panel. Select a tool to start managing your operations.</p>
+            </div>
+            <div class="hero-graphics">
+                <!-- Abstract Graphic Shapes -->
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </section>
+
+        <section class="tools-grid">
+            
+            <a href="/register" class="tool-card card-teal">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                </div>
+                <div class="tool-info">
+                    <h2>New User Registration</h2>
+                    <p>Capture basic data for new residents.</p>
+                </div>
+            </a>
+
+            <a href="/arrival-checklist" class="tool-card card-pink">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </div>
+                <div class="tool-info">
+                    <h2>Arrival Checklist</h2>
+                    <p>Verify residents and mark their room cleaning preparation.</p>
+                </div>
+            </a>
+
+            <!-- Espacio para futuras integraciones -->
+            <div class="tool-card card-phantom">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </div>
+                <div class="tool-info">
+                    <h2>New Tool</h2>
+                    <p>More Airtable integrations coming soon.</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
 </Layout>
+
+<style>
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 8rem 2rem 4rem 2rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        padding: 4rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 32px;
+        backdrop-filter: blur(10px);
+        margin-bottom: 4rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 600px;
+    }
+
+    .badge {
+        display: inline-block;
+        background: rgba(80, 224, 191, 0.2);
+        color: var(--color-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-content h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.1;
+        margin: 0 0 1.5rem 0;
+    }
+
+    .hero-content h1 .highlight {
+        color: var(--color-primary);
+        display: block;
+    }
+
+    .hero-content p {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+    }
+
+    .hero-graphics {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.8;
+        pointer-events: none;
+    }
+
+    .shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+    }
+
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+        background: rgba(254, 84, 74, 0.4);
+        top: -50px;
+        right: -50px;
+    }
+
+    .shape-2 {
+        width: 200px;
+        height: 200px;
+        background: rgba(80, 224, 191, 0.3);
+        bottom: -50px;
+        right: 150px;
+    }
+
+    .shape-3 {
+        width: 150px;
+        height: 150px;
+        background: rgba(255, 140, 156, 0.4);
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+
+    .tool-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 24px;
+        padding: 2.5rem;
+        text-decoration: none;
+        color: var(--color-text);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tool-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .tool-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: #ccc;
+    }
+
+    .card-teal::before { background: var(--color-primary); }
+    .card-pink::before { background: var(--color-secondary); }
+
+    .tool-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        background: rgba(63, 45, 81, 0.05);
+    }
+
+    .card-teal .tool-icon {
+        background: rgba(80, 224, 191, 0.1);
+        color: var(--color-primary);
+    }
+
+    .card-pink .tool-icon {
+        background: rgba(255, 140, 156, 0.1);
+        color: var(--color-secondary);
+    }
+
+    .tool-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .tool-info h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin: 0 0 0.5rem 0;
+        color: var(--color-bg);
+    }
+
+    .tool-info p {
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .card-phantom {
+        border-style: dashed;
+        border-width: 2px;
+        background: rgba(255, 255, 255, 0.05);
+        cursor: not-allowed;
+    }
+
+    .card-phantom::before {
+        display: none;
+    }
+
+    .card-phantom .tool-icon {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .card-phantom .tool-info h2,
+    .card-phantom .tool-info p {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .card-phantom:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 3rem 2rem;
+            flex-direction: column;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-graphics {
+            opacity: 0.3;
+        }
+    }
+</style>
